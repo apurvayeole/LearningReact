@@ -6,7 +6,15 @@ function Square({ value }) {
     </button>
   );
 }
+
 export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    nextSquares[i] = 'X';
+    setSqyares(nextSquares);
+  }
     return(
     <>
     <div className="grid">
