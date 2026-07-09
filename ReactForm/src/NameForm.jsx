@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 function NameForm(){
     // const [name, setName] = useState("");
     // return(
@@ -11,11 +11,20 @@ function NameForm(){
     //     </div>
     //     </>
     // )
-    const [formData, setFormData] = useState({
-        name : "",
-        email : "",
-        password: "",
+    const [formData, setFormData] = useState(() => {
+        const saved = localStorage.getItem("formData");
+        try {
+            return saved ? JSON.parse(saved) : {name:"", email:"", password:""};
+        } catch {
+            return {name:"", email:"", password:""};
+        }
     });
+
+    useEffect(() => {
+        localStorage.setItem("formData", JSON.stringify(formData))
+    },[formData]);
+
+
     const [error, setError] = useState("");
     function handleChange(e) {
         const {name, value} = e.target; //object destruction
@@ -29,25 +38,26 @@ function NameForm(){
         e.preventDefault();
         setError("");
         // console.log("submitted data:",formData);
-        try{
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts/", {
+        // try{
+        const response = await fetch("http://localhost:3000/signup", {
             method : "POST",
             headers:{
-                "Content-Type" :"application/json"
+                "Content-Type" :"application/json",
+                "authorization":"Bearer qwertyuiop1234567890"
             },
             body: JSON.stringify(formData),
         });
-        if(!response.ok){
-            throw new Error (`Server error: ${response.status}`);
-        }
+        // if(!response.ok){
+        //     throw new Error (`Server error: ${response.status}`);
+        // }
 
         const data = await response.json();
         console.log("server responded with: " , data);
-    }catch(error){
-       setError(error.message);
-        // console.log("Something went wrong:", error.message);
-    }
-    }
+    // }catch(error){
+    //    setError(error.message);
+    //     // console.log("Something went wrong:", error.message);
+    // }
+}
     return(
         <>
         <div>
