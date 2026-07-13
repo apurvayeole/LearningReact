@@ -1,13 +1,12 @@
-
-import NameForm from './NameForm'
+import { Routes, Route } from "react-router-dom";
+import Image from './Image'
 
 function App() {
- 
-
   return (
-    <>
-     <NameForm/> 
-    </>
+    <Routes>
+      <Route path="/upload-album" element={<Image />} />
+      <Route path="/uploadd-album" element={<Image />} />
+    </Routes>
   )
 }
 

@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const upload = require('./multerConfig');
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -26,6 +28,18 @@ app.post("/signup", Authentication, (req, res) => {
   console.log(req.body);
   res.json({ message: "Data received! You are authorized" });
 });
+
+app.post('/upload-album', upload.fields([
+    {name:"coverImage", maxCount:1},
+    {name:"images",maxCount:20},
+]),
+(req,res) => {
+    console.log("Album title:", req.body.albumTitle);
+    console.log("Cover image: ",req.files.coverImage);
+    console.log("Other Images:", req.files.images);
+
+    res.json({message:"album uploaded successfully!"});
+})
 app.listen(3000, ()=>{
     console.log("server running on http://localhost:3000");
 });
