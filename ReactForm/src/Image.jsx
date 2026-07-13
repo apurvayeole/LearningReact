@@ -4,12 +4,16 @@ function Image() {
     const [coverImage, setCoverImage] = useState(null);
     const [images, setImages] = useState([]);
     const [albumTitle, setAlbumTitle] = useState('');
+    const [cameraBody, setCameraBody] = useState("");
+    const [lens, setLens] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
 
         const data = new FormData();
         data.append('albumTitle', albumTitle);
+        data.append('cameraBody', cameraBody);
+        data.append('lens', lens);
         if (coverImage) {
             data.append('coverImage', coverImage);
         }
@@ -37,6 +41,26 @@ function Image() {
                         type="text"
                         value={albumTitle}
                         onChange={(e) => setAlbumTitle(e.target.value)}
+                        style={{ display: 'block', marginTop: '5px', marginBottom: '10px' }}
+                    />
+                </div>
+
+                <div>
+                    <label>Camera Body:</label>
+                    <input
+                        type="text"
+                        value={cameraBody}
+                        onChange={(e) => setCameraBody(e.target.value)}
+                        style={{ display: 'block', marginTop: '5px', marginBottom: '10px' }}
+                    />
+                </div>
+
+                <div>
+                    <label>Lens:</label>
+                    <input
+                        type="text"
+                        value={lens}
+                        onChange={(e) => setLens(e.target.value)}
                         style={{ display: 'block', marginTop: '5px', marginBottom: '10px' }}
                     />
                 </div>
