@@ -5,6 +5,8 @@ const file = require('fs');
 const upload = require('./multerConfig');
 const Album = require('./AlbumSchema');
 
+const bcrypt = require('bcrypt');
+
 const app = express();
 app.use(express.json());
 app.use(cors());
